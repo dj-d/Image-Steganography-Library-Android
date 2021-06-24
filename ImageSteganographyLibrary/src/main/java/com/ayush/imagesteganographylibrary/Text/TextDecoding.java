@@ -23,44 +23,23 @@ public class TextDecoding extends AsyncTask<ImageSteganography, Void, ImageStega
     private final ImageSteganography result;
     //Callback interface for AsyncTask
     private final TextDecodingCallback textDecodingCallback;
-    private ProgressDialog progressDialog;
 
-    public TextDecoding(Activity activity, TextDecodingCallback textDecodingCallback) {
+    public TextDecoding(TextDecodingCallback textDecodingCallback) {
         super();
-        this.progressDialog = new ProgressDialog(activity);
         this.textDecodingCallback = textDecodingCallback;
         //making result object
         this.result = new ImageSteganography();
-    }
-
-    //setting progress dialog if wanted
-    public void setProgressDialog(ProgressDialog progressDialog) {
-        this.progressDialog = progressDialog;
     }
 
     //pre execution of method
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
-        //setting parameters of progress dialog
-        if (progressDialog != null) {
-            progressDialog.setMessage("Loading, Please Wait...");
-            progressDialog.setTitle("Decoding Message");
-            progressDialog.setIndeterminate(true);
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
-        }
     }
 
     @Override
     protected void onPostExecute(ImageSteganography imageSteganography) {
         super.onPostExecute(imageSteganography);
-
-        //dismiss progress dialog
-        if (progressDialog != null)
-            progressDialog.dismiss();
 
         //sending result to callback
         textDecodingCallback.onCompleteTextEncoding(result);
